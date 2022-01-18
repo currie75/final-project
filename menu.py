@@ -7,16 +7,23 @@
 # Imports
 import random
 from words import word_list
+from datetime import datetime
+#
+now = datetime.now()
+#
+current_time = now.strftime("%H:%M:%S")
+print("Current Time =", current_time)
 
 #hangman body
 Hangman = ['''
+  
     +---+
     |   |
     |
     |
     |
     |
- =========''','''
+ =========''', '''
 
     +---+
     |   |
@@ -24,7 +31,7 @@ Hangman = ['''
     |
     |
     |
- =========''','''
+ =========''', '''
 
     +---+
     |   |
@@ -32,7 +39,7 @@ Hangman = ['''
     |   |
     |
     |
- =========''','''
+ =========''', '''
 
     +---+
     |   |
@@ -40,7 +47,7 @@ Hangman = ['''
     |   |\
     |
     |
- =========''','''
+ =========''', '''
 
     +---+
     |   |
@@ -48,7 +55,7 @@ Hangman = ['''
     |  /|\
     |
     |
- =========''','''
+ =========''', '''
 
     +---+
     |   |
@@ -56,7 +63,7 @@ Hangman = ['''
     |  /|\
     |  / 
     |
- =========''','''
+ =========''', '''
 
     +---+
     |   |
@@ -64,7 +71,8 @@ Hangman = ['''
     |  /|\
     |  / \
     |
- =========''']
+ ========='''
+]
 #
 Max_wrong = len(Hangman) - 1
 #
@@ -80,41 +88,62 @@ used_letters = []
 print("\033[1;35;20m \n")
 print("This is Hangman")
 print("lets play")
+print(Hangman[0])
 #
 
-while wrong_guess < Max_wrong and current_guess != word:
-    print(Hangman[wrong_guess])
-    print("you have used these following letter: ",used_letters)
-    print("your current word is so far: ",current_guess)
-#
-guess = input("enter letters here:")
-guess = guess.upper()
 
-while guess in used_letters:
-    print("You have already used that letter", guess)
-    guess = input("add your letters to guess:")
-    guess = guess.upper()
+print(word)
 
-used_letters.append(guess)
 
-if guess in word:
-    print("you have correctly guess a letter!")
 
-    new_current_guess = ""
-    for letters in range(len(word)):
-        if guess == word[letters]:
-            new_current_guess += guess
+def run():
+    global wrong_guess
+    global current_guess
+   
+    playing = True
+
+    while playing:
+        guess = input("enter letters here:")
+        guess = guess.lower()
+
+        #
+        while guess in used_letters:
+            print("You have already used that letter", guess)
+            guess = input("add your letters to guess:")
+            guess = guess.upper()
+
+        used_letters.append(guess)
+
+        if guess in word:
+            print("you have correctly guess a letter!")
+
+            new_current_guess = ""
+            for letters in range(len(word)):
+                if guess == word[letters]:
+                    new_current_guess += guess
+                else:
+                    new_current_guess += current_guess[letters]
+
+            current_guess = new_current_guess
         else:
-            new_current_guess += current_guess[letters]
+            print("sorry thats a wrong guess")
+            
+            wrong_guess += 1
 
-    current_guess = new_current_guess
-else:
-    print("sorry thats a wrong guess")
+        if wrong_guess == Max_wrong:
+            print(Hangman[current_guess])
+            print("you got hanged up mann!")
+            print("the correct word is", word)
+            playing = False
 
-    wrong_guess +=1
+        if current_guess == Max_wrong:
+            print(Hangman[current_guess])
+            print("you did it you sloved the word", word)
+            playing = False
 
-
-if wrong_guess == Max_wrong:
-    print(Hangman[current_guess])
-    print("you got hanged up mann!")
-    print("the correct word is", word)
+        if wrong_guess < Max_wrong and current_guess != word:
+            print(Hangman[wrong_guess])
+            print("you have used these following letter: ", used_letters)
+            print("your current word is so far: ", current_guess)
+    
+run()
