@@ -8,15 +8,15 @@
 import random
 from words import word_list
 from datetime import datetime
-#
+# This adding the real time now
 now = datetime.now()
-#
+# 
 current_time = now.strftime("%H:%M:%S")
 print("Current Time =", current_time)
 
 #hangman body
 Hangman = ['''
-  
+
     +---+
     |   |
     |
@@ -44,7 +44,7 @@ Hangman = ['''
     +---+
     |   |
     |   O
-    |   |\
+    |   |\\
     |
     |
  =========''', '''
@@ -52,7 +52,7 @@ Hangman = ['''
     +---+
     |   |
     |   O
-    |  /|\
+    |  /|\\
     |
     |
  =========''', '''
@@ -60,19 +60,19 @@ Hangman = ['''
     +---+
     |   |
     |   O
-    |  /|\
-    |  / 
+    |  /|\\
+    |  /
     |
  =========''', '''
 
     +---+
     |   |
     |   O
-    |  /|\
-    |  / \
+    |  /|\\
+    |  / \\
     |
- ========='''
-]
+ =========''']
+
 #
 Max_wrong = len(Hangman) - 1
 #
@@ -92,14 +92,10 @@ print(Hangman[0])
 #
 
 
-print(word)
-
-
-
 def run():
     global wrong_guess
     global current_guess
-   
+
     playing = True
 
     while playing:
@@ -127,23 +123,18 @@ def run():
             current_guess = new_current_guess
         else:
             print("sorry thats a wrong guess")
-            
+
             wrong_guess += 1
 
         if wrong_guess == Max_wrong:
-            print(Hangman[current_guess])
+            print(Hangman[wrong_guess])
             print("you got hanged up mann!")
             print("the correct word is", word)
-            playing = False
-
-        if current_guess == Max_wrong:
-            print(Hangman[current_guess])
-            print("you did it you sloved the word", word)
             playing = False
 
         if wrong_guess < Max_wrong and current_guess != word:
             print(Hangman[wrong_guess])
             print("you have used these following letter: ", used_letters)
             print("your current word is so far: ", current_guess)
-    
+
 run()
