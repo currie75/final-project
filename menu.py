@@ -85,7 +85,7 @@ wrong_guess = 0
 used_letters = []
 
 #
-print("\033[1;35;20m \n")
+print("\033[1;35;34m \n")
 print("This is Hangman")
 print("lets play")
 print(Hangman[0])
@@ -128,7 +128,7 @@ def run():
 
         if wrong_guess == Max_wrong:
             print(Hangman[wrong_guess])
-            print("you got hanged up mann!")
+            print('\033[1;31;40m you got hanged up mann!')
             print("the correct word is", word)
             playing = False
 
